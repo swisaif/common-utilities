@@ -2,6 +2,7 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
     }
 }
@@ -10,7 +11,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-    }
+        mavenLocal() // assurez-vous d'avoir ceci pour utiliser votre référentiel local Maven
+        maven { url 'https://jitpack.io' }
+        }
 }
 
 rootProject.name = "Common Utilities"
