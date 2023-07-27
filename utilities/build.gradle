@@ -5,9 +5,11 @@ plugins {
     id 'kotlin-kapt'
     id 'maven-publish'
 }
+version= '0.1.3'
+group = 'com.github.jitpack'
 
 android {
-    namespace 'fr.swisaif.common.network'
+    namespace 'fr.swisaif.common.utilities'
     compileSdk 33
 
     defaultConfig {
@@ -24,21 +26,28 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
-}
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId 'fr.swisaif'
-            artifactId 'common-utilities'
-            version '0.1.0'
+    defaultConfig {
+        aarMetadata {
+            minCompileSdk = 24
         }
     }
+    testFixtures {
+        enable = true
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+}
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 dependencies {
 
@@ -72,4 +81,18 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.jitpack'
+                artifactId = 'common-utilities'
+                version = '0.1.3'
+            }
+        }
+    }
 }
