@@ -77,11 +77,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
 
-
-
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:2.44.2"
     kapt "com.google.dagger:hilt-compiler:2.44.2"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+    // My android lib for common utilities
+    implementation 'com.github.swisaif:common-utilities:0.1.3'
 }
 
