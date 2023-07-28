@@ -13,3 +13,83 @@ Gestion de ViewModel : Nous fournissons des classes de base et des helpers pour 
 Classes utilitaires : Nous fournissons également des classes utilitaires pour le traitement du JSON et la gestion des préférences de l'application, rendant le stockage et la récupération des données utilisateur plus simples et plus efficaces.
 
 En utilisant notre bibliothèque, vous pouvez accélérer le développement de votre application métier, réduire les bugs et améliorer la qualité globale de votre code.
+
+## Repository
+
+Afin de garder quelque chose d'homogène sur les repository, un ensemble d'interface est mis à disposition pour que vous puissiez composer vos repository en fonction des besoin.repository
+
+Un repository devra donc garder la même entité métier pour chacune des interface.
+
+Voici la liste actuelle :
+
+```kotlin
+/**
+ * Insertion d'une entité
+ */
+interface InsertOneRepository<E> : Repository<E> {
+    fun insert(entity : E) : Single<E>
+}
+
+/**
+ * Insestion d'un ensemble d'entité
+ */
+interface InsertAllRepository<E> : Repository<E> {
+    fun insert(entities : List<E>) : Single<List<E>>
+}
+
+/**
+ * Renvoi l'existence d'une entité ou pas
+ */
+interface ExistRepository<E> : Repository<E> {
+    fun exist(): Observable<Boolean>
+}
+
+/**
+ * Permet de récupérer votre unique entité métier
+ */
+interface FindRepository<E> : Repository<E> {
+    fun find(): Observable<E>
+}
+
+/**
+ * Le Type I vous permet de choisir ce que vous voulez pour votre recherche, ça peut être un String ou un objet plus complexe
+ */
+interface FindByIdRepository<E, I> : Repository<E> {
+    fun findById(id: I): Observable<E>
+}
+
+/**
+ * Renvoi toutes les entitées métiers
+ */
+interface FindAllRepository<E> : Repository<E> {
+    fun findAll(): Observable<List<E>>
+}
+
+/**
+ * Met à jour l'entité métier
+ */
+interface UpdateOneRepository<E> : Repository<E> {
+    fun update(entity: E): Single<E>
+}
+
+/**
+ * Met à jour toutes les entitées métiers.
+ */
+interface UpdateAllRepository<E> : Repository<E> {
+    fun update(entities: List<E>): Single<List<E>>
+}
+
+/**
+ * Supprime l'entité métier
+ */
+interface DeleteOneRepository<E> : Repository<E> {
+    fun delete(entity: E): Completable
+}
+
+/**
+ * Supprime toutes les entitées métiers
+ */
+interface DeleteAllRepository<E> : Repository<E> {
+    fun deleteAll(): Completable
+}
+```
